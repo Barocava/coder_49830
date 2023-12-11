@@ -51,6 +51,8 @@ function esPrimo(numero){
       
     
 }
+
+//Apartado de funciones arrow
 const esNaN = valor => (valor !== valor);
 const esNull = valor => (valor === null);
 const esNegativo = negativo => (negativo < 0 );
