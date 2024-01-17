@@ -1,4 +1,4 @@
-import { casas } from './db/casas.js'; 
+import { casas } from '../db/casas.js'; 
 
 const filtro_menor_mayor = (arreglo_objetos, filtro) => {
     let arreglo = arreglo_objetos.slice();
