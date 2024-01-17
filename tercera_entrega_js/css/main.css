@@ -1,0 +1,361 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  background-color: rgba(129, 255, 11, 0);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hero_acerca {
+  background-image: url("../img/chile-melhor-época-5.jpg");
+  width: 100%;
+  height: 500px; /* Ajusta esto a la altura que desees */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.acerca_botones {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding-block: 1rem;
+}
+
+.acerca_botones button a {
+  text-decoration: none;
+  color: white;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+.info .firma {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.info .firma .acerca_cartas {
+  display: flex;
+  width: 500px;
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+.info .firma .acerca_cartas .acerca_cartas_img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.info .firma .acerca_cartas .acerca_cartas_texto {
+  width: 50%;
+  padding: 10px;
+  padding-left: 20px;
+}
+
+.collage {
+  display: grid;
+  grid-auto-rows: 300px;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  margin-block: 20px;
+  /* padding: 20px; */
+}
+
+.collage_titulo {
+  margin: 2rem;
+  margin-top: 4rem;
+  padding-bottom: 1rem;
+  border-bottom: 5px solid #0d6efd;
+}
+
+.collage-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding: 10px;
+}
+
+.collage-item:nth-child(1) {
+  grid-row-start: span 3;
+}
+
+/* .collage-item:nth-child(3){
+    grid-row-start: span 2;
+} */
+.contenedor {
+  width: 1300px;
+  justify-content: center;
+}
+
+.mision {
+  justify-content: center;
+  text-align: center;
+  margin: 1rem;
+  width: 75%;
+}
+
+.tamano_boton {
+  font-size: 1.25rem;
+  padding: 1rem;
+}
+
+.main_formulario {
+  width: 1300px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.banner-titulo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  padding-block: 2rem;
+  background-color: whitesmoke;
+}
+.banner-titulo h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+.banner-titulo h2 {
+  text-align: center;
+}
+.banner-titulo h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #3159d6;
+}
+
+.banner-contacto {
+  display: grid;
+  grid-template-columns: repeat(12, 0.5fr);
+  grid-template-rows: repeat(5, 8rem);
+  margin: 20px;
+}
+.banner-contacto img {
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+}
+.banner-contacto .banner-img-1 {
+  grid-column: 6/11;
+  grid-row: 1/5;
+}
+.banner-contacto .banner-img-2 {
+  grid-column: 8/13;
+  grid-row: 3;
+}
+
+.formulario {
+  grid-column: 1/5;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(43, 48, 53);
+  padding: 0.5rem;
+}
+
+.footer li {
+  list-style-type: none;
+}
+
+.pie {
+  max-width: var(--ancho-maximo);
+  width: 100%;
+  gap: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.contenedor-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.pie ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu-item {
+  color: white;
+}
+
+.bi {
+  color: white;
+  font-size: 30px;
+  padding: 1rem;
+}
+
+.bi-house-fill {
+  padding: 0.5rem;
+}
+
+.container-fluid {
+  max-width: 1300px;
+}
+
+.efecto {
+  transition: 1s;
+}
+
+.col {
+  min-width: 325px;
+}
+
+.card img {
+  min-height: 250px;
+  object-fit: cover;
+}
+
+.carta .card {
+  width: 325px;
+  height: 500px;
+  transition: box-shadow 0.3s ease;
+}
+
+.carousel-item img {
+  height: 70vh; /* Ajusta esto a la altura que desees */
+  width: auto; /* Esto mantendrá la relación de aspecto de la imagen */
+  object-fit: cover; /* Esto cortará la imagen si es necesario para evitar el estiramiento */
+}
+
+.ficha_casa {
+  display: flex;
+  flex-direction: column;
+}
+
+.carta_casa {
+  padding: 2rem;
+}
+
+.carta_detalle {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.detalle {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 0.5rem;
+}
+
+.planos {
+  width: 300px;
+  height: 300px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .contenedor {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .mision {
+    width: 90%;
+    margin: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .tamano_boton {
+    font-size: 1rem;
+  }
+  .collage {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+  .info .firma .acerca_cartas {
+    width: 100%;
+    height: auto;
+  }
+}
+@media screen and (min-width: 700px) {
+  .efecto:hover {
+    transform: scale(1.25);
+  }
+  .info .firma .acerca_cartas:hover {
+    box-shadow: 10px 10px 5px grey;
+    /*
+    .acerca_cartas_img {
+      width: 100%;
+      object-position: none;
+    }
+    .acerca_cartas_texto {
+      display: none;
+    }
+    */
+  }
+  .carta .card:hover {
+    box-shadow: 10px 10px 5px grey;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .main_formulario {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1030px) {
+  .banner-contacto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 4rem;
+    margin-inline: 8rem;
+  }
+  .main_formulario div img {
+    width: 0;
+    height: 0;
+  }
+}
+@media screen and (max-width: 700px) {
+  .banner-contacto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-inline: 1rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .texto {
+    display: none;
+  }
+  .pie {
+    justify-content: center;
+  }
+  .contenedor-menu {
+    gap: 4rem;
+    padding-left: 0;
+  }
+}/*# sourceMappingURL=main.css.map */

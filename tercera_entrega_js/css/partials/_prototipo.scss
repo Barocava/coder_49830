@@ -1,0 +1,28 @@
+.ficha_casa {
+  display: flex;
+  flex-direction: column;
+}
+
+.carta_casa {
+  padding: 2rem;
+}
+
+.carta_detalle {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.detalle {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 0.5rem;
+}
+
+.planos {
+  width: 300px;
+  height: 300px;
+  padding: 1rem;
+  margin-top: 1rem;
+}

@@ -1,0 +1,105 @@
+// acerca
+@media screen and (max-width: $ancho-maximo) {
+  .contenedor {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .mision {
+    width: 90%;
+    margin: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .tamano_boton {
+    font-size: 1rem;
+  }
+  .collage {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+
+  .info {
+    .firma {
+      .acerca_cartas {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .efecto {
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+  .info {
+    .firma {
+      .acerca_cartas {
+        &:hover {
+          box-shadow: 10px 10px 5px grey;
+        }
+      }
+    }
+  }
+
+  .carta {
+    .card {
+      &:hover {
+        box-shadow: 10px 10px 5px grey;
+        box
+      }
+    }
+  }
+}
+
+// contacto
+
+@media screen and (max-width: 1300px) {
+  .main_formulario {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1030px) {
+  .banner-contacto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 4rem;
+    margin-inline: 8rem;
+  }
+
+  .main_formulario {
+    div img {
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .banner-contacto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+    margin-inline: 1rem;
+  }
+}
+
+// footer
+@media screen and (max-width: 768px) {
+  .texto {
+    display: none;
+  }
+
+  .pie {
+    justify-content: center;
+  }
+
+  .contenedor-menu {
+    gap: 4rem;
+    padding-left: 0;
+  }
+}

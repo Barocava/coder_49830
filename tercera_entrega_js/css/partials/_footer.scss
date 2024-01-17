@@ -1,0 +1,44 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(43, 48, 53, 1);
+  padding: 0.5rem;
+}
+
+.footer {
+  li {
+    list-style-type: none;
+  }
+}
+
+.pie {
+  max-width: var(--ancho-maximo);
+  width: 100%;
+  gap: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.contenedor-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.pie {
+  ul {
+    li {
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+}
+
+.menu-item {
+  color: white;
+}
