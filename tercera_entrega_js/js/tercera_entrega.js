@@ -38,8 +38,8 @@ const renderizarCarta = (elemento_padre, objeto) => {
         </p>
 
         <div class="acerca_botones" style="padding-block: 0rem">
-          <button id="boton-${objeto.id}-a" type="button" class="btn btn-primary">Agregar(${JSON.parse(localStorage.getItem(objeto.id))})</button>
-          <button id="boton-${objeto.id}-q" type="button" class="btn btn-primary">Quitar(${JSON.parse(localStorage.getItem(objeto.id))})</button>
+          <button id="boton-${objeto.id}-a" type="button" class="btn btn-primary">Agregar(${retornaID(objeto.id)["stock"]})</button>
+          <button id="boton-${objeto.id}-q" type="button" class="btn btn-primary">Quitar(${retornaID(objeto.id)["stock"]})</button>
       </div>
 
     </div>`;
@@ -49,8 +49,8 @@ const renderizarCarta = (elemento_padre, objeto) => {
 const renderizaTotal = () => {
     let total = document.getElementById("total");
     let totales = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-        totales = totales + Number(localStorage.getItem(localStorage.key(i)));
+    for(const producto of JSON.parse(localStorage.getItem(`inventario`))){
+        totales = totales + producto["stock"];
     }
     total.innerText = `Total Productos: ${totales}`   
 };
@@ -62,64 +62,62 @@ const vaciarCarrito = () => {
 };
 
 const agregarCarrito = (event) => {
-    console.log(event);
-    console.log(event.srcElement.id);
     let id = event.srcElement.id.split("-")[1];
-    console.log(id);
-    if (JSON.parse(localStorage.getItem(id))){
-        localStorage.setItem(id, JSON.stringify(Number(JSON.parse(localStorage.getItem(id))) + 1 ));
-    }else{
-        for (let i = 0; i < localStorage.length; i++) {
-            localStorage.key(i) === id && localStorage.setItem(id, JSON.stringify(Number(JSON.parse(localStorage.getItem(id))) + 1 ));
-        }  
-    }
+    sumaInventario(id);
     actualizaBotones(event.srcElement.id);
     renderizaTotal();
 };
 
 const quitarCarrito = (event) => {
     let id = event.srcElement.id.split("-")[1];
-    console.log(id);
-
-    if (JSON.parse(localStorage.getItem(id))){
-
-        let disponible = Number(JSON.parse(localStorage.getItem(id)));
-        console.log(disponible);
-        console.log("shit");
-        console.log(JSON.stringify(disponible - 1 ));
-        localStorage.setItem(id, JSON.stringify(disponible- 1 ));
-    }else{
-        for (let i = 0; i < localStorage.length; i++) {
-            localStorage.key(i) === id && localStorage.setItem(id, JSON.stringify(Number(JSON.parse(localStorage.getItem(id)))));
-        }  
-    }
+    restaInventario(id);
     actualizaBotones(event.srcElement.id);
     renderizaTotal();
 };
 
 const actualizaBotones = (elemento) => {
     let boton_1 = elemento;
-    let btn_seg = boton_1.split("-");
-    let boton_2 = "";
-    btn_seg[2] === "a" ? boton_2 = btn_seg[0]+"-"+btn_seg[1]+"q" : boton_2 = btn_seg[0]+"-"+btn_seg[1]+"a";
+    let id = boton_1.split("-")[1];
+    let boton_a = document.getElementById(`boton-${id}-a`);
+    let boton_q = document.getElementById(`boton-${id}-q`);
+    boton_a.innerText = `Agregar(${retornaID(id)["stock"]})`;
+    boton_q.innerText = `Quitar(${retornaID(id)["stock"]})`;
+};
 
-    if(btn_seg[2] === "a") {
-        let boton_a = document.getElementById(boton_1);
-        let boton_q = document.getElementById(btn_seg[0]+"-"+btn_seg[1]+"-"+"q");
-        boton_a.innerText = `Agregar(${JSON.parse(localStorage.getItem(btn_seg[1]))})`;
-        boton_q.innerText = `Quitar(${JSON.parse(localStorage.getItem(btn_seg[1]))})`;
-    } else {
-        let boton_q = document.getElementById(boton_1);
-        let boton_a = document.getElementById(btn_seg[0]+"-"+btn_seg[1]+"-"+"a");
-        boton_q.innerText = `Quitar(${JSON.parse(localStorage.getItem(btn_seg[1]))})`;
-        boton_a.innerText = `Agregar(${JSON.parse(localStorage.getItem(btn_seg[1]))})`;
+const retornaID = (id) => {
+    for(const producto of JSON.parse(localStorage.getItem(`inventario`))){
+        if(producto["id"]===Number(id)) {return producto;}
     }
+    return null;
+};
+
+const sumaInventario = (id) => {
+    let objeto = JSON.parse(localStorage.getItem("inventario"));
+    for(const producto of objeto){
+        if(producto["id"]==id) producto["stock"] = producto["stock"] + 1;
+    }
+    localStorage.setItem("inventario",JSON.stringify(objeto));
+};
+
+const restaInventario = (id) => {
+    let objeto = JSON.parse(localStorage.getItem("inventario"));
+    for(const producto of objeto){
+        if(producto["id"]==id) {
+            if(producto["stock"] > 0) producto["stock"] = producto["stock"] - 1;
+        }
+    }
+    localStorage.setItem("inventario",JSON.stringify(objeto));
 };
 
 const inicializarLocalStorage = (casas) => { 
+    if(!JSON.parse(localStorage.getItem(`inventario`))){
+    localStorage.setItem(`inventario`, JSON.stringify([]));
     for (const casa of casas){
-    JSON.parse(localStorage.getItem(`${casa.id}`)) || localStorage.setItem(`${casa.id}`, JSON.stringify(casa.enCarrito));
+        let objeto = JSON.parse(localStorage.getItem(`inventario`))
+        objeto.push({"id":casa.id, "stock": casa.enCarrito});
+        localStorage.setItem(`inventario`, JSON.stringify( objeto ));
     }
+}
 };
 
 const filtro = (event) => {
@@ -128,7 +126,6 @@ const filtro = (event) => {
     sessionStorage.setItem("casas_ordenadas", JSON.stringify(filtro_menor_mayor(casas,"menor")));
     location.reload();
 };
-
 
 const main = () => {
     inicializarLocalStorage(casas);
@@ -186,6 +183,6 @@ const main = () => {
     document.getElementById(`vaciar`).addEventListener("click", vaciarCarrito);
     document.getElementById(`mayor`).addEventListener("click", filtro);
     document.getElementById(`menor`).addEventListener("click", filtro);
-    }
+};
 
 main();
