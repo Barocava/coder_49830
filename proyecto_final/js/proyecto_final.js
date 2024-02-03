@@ -164,6 +164,7 @@ const main = () => {
     section_4 != null && casas_ordenadas.length > i && renderizarCarta(section_4,casas_ordenadas[i]);
     i++;
 
+    renderizarMoneda();
     let boton_a = [];
     let boton_q = [];
     for (const casa of casas_ordenadas){
@@ -185,7 +186,23 @@ const main = () => {
     document.getElementById(`menor`).addEventListener("click", filtro);
 };
 
-const obtenerDatos = async () => {
+
+const renderizarMonedaviejo = (valor) => {
+    let moneda = document.getElementById("valor-moneda");
+    moneda.innerText = valor;
+}
+
+const renderizarMoneda = async () => {
+    try {
+      const valor = await obtenerUF(); // Espera a que se obtenga el valor de la moneda
+      let moneda = document.getElementById("valor-moneda");
+      moneda.innerText = valor;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+const obtenerUF = async () => {
     try {
       let response = await fetch('https://mindicador.cl/api/uf'); // Primer await: espera a que se complete la solicitud de red
       let data = await response.json(); // Segundo await: espera a que se lean los datos de la respuesta
@@ -195,8 +212,7 @@ const obtenerDatos = async () => {
       console.error('Error:', error);
       return 0;
     }
-  }
+};
   
 
-obtenerDatos();
 main();
