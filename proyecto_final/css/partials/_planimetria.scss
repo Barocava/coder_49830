@@ -1,0 +1,26 @@
+.col {
+  min-width: 325px;
+
+}
+
+.card {
+  img {
+    min-height: 250px;
+    object-fit: cover;
+  }
+}
+
+.carta {
+  .card {
+    width: 325px;
+    height: 500px;
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+
+.carousel-item img {
+  height: 70vh; /* Ajusta esto a la altura que desees */
+  width: auto; /* Esto mantendrá la relación de aspecto de la imagen */
+  object-fit: cover; /* Esto cortará la imagen si es necesario para evitar el estiramiento */
+}
