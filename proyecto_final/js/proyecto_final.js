@@ -66,13 +66,23 @@ const agregarCarrito = (event) => {
     sumaInventario(id);
     actualizaBotones(event.srcElement.id);
     renderizaTotal();
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Se ha agregado correctamente al carrito',
+        showConfirmButton: false,
+        timer: 1500
+    });
+    
+
 };
 
-const quitarCarrito = (event) => {
+const quitarCarrito = async (event) => {
     let id = event.srcElement.id.split("-")[1];
-    restaInventario(id);
+    await restaInventario(id);
     actualizaBotones(event.srcElement.id);
     renderizaTotal();
+
 };
 
 const actualizaBotones = (elemento) => {
@@ -97,16 +107,70 @@ const sumaInventario = (id) => {
         if(producto["id"]==id) producto["stock"] = producto["stock"] + 1;
     }
     localStorage.setItem("inventario",JSON.stringify(objeto));
+
+
+    
 };
 
-const restaInventario = (id) => {
+const restaInventario2 = (id) => {
     let objeto = JSON.parse(localStorage.getItem("inventario"));
     for(const producto of objeto){
         if(producto["id"]==id) {
-            if(producto["stock"] > 0) producto["stock"] = producto["stock"] - 1;
+            if(producto["stock"] > 0) {
+                Swal.fire({
+                    title: "Esta seguro que desea eliminar el producto?",
+                    text: "",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Si, eliminalo"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Eliminado",
+                            text: "El producto se ha eliminado del carrito",
+                            icon: "success"
+                        });
+                    };
+                });
+                producto["stock"] = producto["stock"] - 1; //movi esto para aca
+            };
+        };
+    };
+    localStorage.setItem("inventario",JSON.stringify(objeto));
+};
+
+const restaInventario = async (id) => {
+    let objeto = JSON.parse(localStorage.getItem("inventario"));
+    for (const producto of objeto) {
+        if (producto["id"] == id) {
+            if (producto["stock"] > 0) {
+                try {
+                    const result = await Swal.fire({
+                        title: "¿Está seguro que desea eliminar el producto?",
+                        text: "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Sí, elimínalo"
+                    });
+                    if (result.isConfirmed) {
+                        await Swal.fire({
+                            title: "Eliminado",
+                            text: "El producto se ha eliminado del carrito",
+                            icon: "success"
+                        });
+                        producto["stock"] = producto["stock"] - 1; // Moví esto aquí
+                    }
+                } catch (error) {
+                    console.error("Error al mostrar el cuadro de diálogo:", error);
+                }
+            }
         }
     }
-    localStorage.setItem("inventario",JSON.stringify(objeto));
+    localStorage.setItem("inventario", JSON.stringify(objeto));
 };
 
 const inicializarLocalStorage = (casas) => { 
@@ -125,6 +189,33 @@ const filtro = (event) => {
     sessionStorage.setItem("casas_ordenadas", JSON.stringify(filtro_menor_mayor(casas,"mayor"))) : 
     sessionStorage.setItem("casas_ordenadas", JSON.stringify(filtro_menor_mayor(casas,"menor")));
     location.reload();
+};
+
+const renderizarMonedaviejo = (valor) => {
+    let moneda = document.getElementById("valor-moneda");
+    moneda.innerText = valor;
+}
+
+const renderizarMoneda = async () => {
+    try {
+      const valor = await obtenerUF(); // Espera a que se obtenga el valor de la moneda
+      let moneda = document.getElementById("valor-moneda");
+      moneda.innerText = valor;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+const obtenerUF = async () => {
+    try {
+      let response = await fetch('https://mindicador.cl/api/uf'); // Primer await: espera a que se complete la solicitud de red
+      let data = await response.json(); // Segundo await: espera a que se lean los datos de la respuesta
+      console.log(data['serie'][0]['valor']);
+      return data['serie'][0]['valor'];
+    } catch (error) {
+      console.error('Error:', error);
+      return 0;
+    }
 };
 
 const main = () => {
@@ -185,34 +276,5 @@ const main = () => {
     document.getElementById(`mayor`).addEventListener("click", filtro);
     document.getElementById(`menor`).addEventListener("click", filtro);
 };
-
-
-const renderizarMonedaviejo = (valor) => {
-    let moneda = document.getElementById("valor-moneda");
-    moneda.innerText = valor;
-}
-
-const renderizarMoneda = async () => {
-    try {
-      const valor = await obtenerUF(); // Espera a que se obtenga el valor de la moneda
-      let moneda = document.getElementById("valor-moneda");
-      moneda.innerText = valor;
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-const obtenerUF = async () => {
-    try {
-      let response = await fetch('https://mindicador.cl/api/uf'); // Primer await: espera a que se complete la solicitud de red
-      let data = await response.json(); // Segundo await: espera a que se lean los datos de la respuesta
-      console.log(data['serie'][0]['valor']);
-      return data['serie'][0]['valor'];
-    } catch (error) {
-      console.error('Error:', error);
-      return 0;
-    }
-};
-  
 
 main();
